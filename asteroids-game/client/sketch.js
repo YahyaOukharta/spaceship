@@ -21,13 +21,17 @@ function setup(){
       }
     }
     ships=arr;
-    console.log(ships.length);
   });
 
 
 }
 function draw(){
   background(0);
+  ship.bullets.forEach(function(bul){
+    bul.render();
+    bul.update();
+  });
+
   ship.render();
   ship.update();
 

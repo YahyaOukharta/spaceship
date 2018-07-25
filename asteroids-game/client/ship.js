@@ -2,6 +2,8 @@ function Ship(username, data){
   this.username = username;
   this.controller = new Controller(); /// controller object
 
+  this.bullets=[];
+
   if(!data){
     this.r = 30; //radius
     this.color=(random(255),random(255),random(255));
@@ -31,7 +33,7 @@ function Ship(username, data){
       pop();
   }
 
-  this.renderUsername = function(){ //renders usernames of the ships 
+  this.renderUsername = function(){ //renders usernames of the ships
     push();
       translate(this.pos.x,this.pos.y);
       textAlign(CENTER);
@@ -46,9 +48,9 @@ function Ship(username, data){
 
       this.turn();
       this.accelerate();
-
+      this.shoot();
       this.edges();
-  }
+  }   //update position by adding velocity to position vector
 
   this.accelerate=function(){ //function responsible for the acceleration of the ship
       if(this.controller.up){
@@ -83,6 +85,12 @@ function Ship(username, data){
       }
   }
 
+  this.shoot=function(){
+    if(this.controller.space){
+        this.bullets.push(new Bullet(this));
+        this.controller.space=false;
+    }
+  }
 }
 
 

@@ -1,12 +1,22 @@
-function Ship(){
+function Ship(username, data){
+  this.username = username;
   this.controller = new Controller(); /// controller object
 
-  this.r = 30; //radius
-  this.color=color(0);
+  if(!data){
+    this.r = 30; //radius
+    this.color=(random(255),random(255),random(255));
 
-  this.pos = createVector(width/2,height/2); ///position and
-  this.vel = createVector(0,0);              ///speed vectors
-  this.dir = PI;                            //direction the ship is facing
+    this.pos = createVector(width/2,height/2); ///position and
+    this.vel = createVector(0,0);              ///speed vectors
+    this.dir = PI;                            //direction the ship is facing
+  }else{
+    this.r = data.r;
+    this.color=data.color
+
+    this.pos = createVector(data.x,data.y); ///position and
+    this.vel = createVector(data.vx,data.vy);              ///speed vectors
+    this.dir = data.dir;
+  }
 
   this.render = function(){   //render function
 
@@ -19,7 +29,15 @@ function Ship(){
 
         triangle(0,this.r , this.r/2,0 ,-this.r/2,0);
       pop();
+  }
 
+  this.renderUsername = function(){ //renders usernames of the ships 
+    push();
+      translate(this.pos.x,this.pos.y);
+      textAlign(CENTER);
+      stroke(255);
+      text(this.username,0,-this.r);
+    pop();
   }
 
   this.update=function(){
@@ -65,4 +83,12 @@ function Ship(){
       }
   }
 
+}
+
+
+function randomColor(){
+  var r = random(255);
+  var g = random(255);
+  var b = random(255);
+  return color(r,g,b);
 }
